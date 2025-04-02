@@ -50,11 +50,13 @@ public class Jogo {
             int resposta = 0;
 
             if (turno == 1 && !jogador1Parou) {
-                System.out.println("\n=== Vez do " + jogador1.getnome() + " ===");
-                System.out.println("Seu valor atual é: " + valor1);
-                System.out.println("Deseja pegar mais uma carta? Digite 1 para sim, ou 0 para passar e 2 para parar:");
-                resposta = scanner.nextInt();
-
+                if(!(valor1==21)) {
+                    System.out.println("\n=== Vez do " + jogador1.getnome() + " ===");
+                    System.out.println("Seu valor atual é: " + valor1);
+                    System.out.println("Deseja pegar mais uma carta? Digite 1 para sim, ou 0 para passar e 2 para parar:");
+                    resposta = scanner.nextInt();
+                }
+                resposta=2;
                 if (resposta == 1) {
                     Carta carta = baralho.tirarCarta();
                     int numerocarta = obterValorCarta(carta.getValor());
@@ -63,8 +65,8 @@ public class Jogo {
                     System.out.println(MessageFormat.format("Cartas restantes no baralho: {0}", baralho.cartasRestantes()));
 
                     if (valor1 == 21) {
-                        System.out.println("\n" + jogador1.getnome() + " venceu! Ele(a) alcançou 21.");
-                        jogo = 1;
+                        jogador1Parou=true;
+                        System.out.println(jogador1.getnome() + " decidiu parar.");
                     } else if (valor1 > 21) {
                         System.out.println("\n" + jogador2.getnome() + " venceu! Com " + valor2);
                         System.out.println("Seu valor estourou 21: " + valor1);
@@ -80,11 +82,12 @@ public class Jogo {
             }
 
             if (turno == 2 && !jogador2Parou) {
-                System.out.println("\n=== Vez do " + jogador2.getnome() + " ===");
-                System.out.println("Seu valor atual é: " + valor2);
-                System.out.println("Deseja pegar mais uma carta? Digite 1 para sim, ou 0 para passar e 2 para parar:");
-                resposta = scanner.nextInt();
-
+                if(!(valor1==21)) {
+                    System.out.println("\n=== Vez do " + jogador2.getnome() + " ===");
+                    System.out.println("Seu valor atual é: " + valor2);
+                    System.out.println("Deseja pegar mais uma carta? Digite 1 para sim, ou 0 para passar e 2 para parar:");
+                    resposta = scanner.nextInt();
+                }resposta=2;
                 if (resposta == 1) {
                     Carta carta = baralho.tirarCarta();
                     int numerocarta = obterValorCarta(carta.getValor());
@@ -93,8 +96,8 @@ public class Jogo {
                     System.out.println(MessageFormat.format("Cartas restantes no baralho: {0}", baralho.cartasRestantes()));
 
                     if (valor2 == 21) {
-                        System.out.println("\n" + jogador2.getnome() + " venceu! Ele(a) alcançou 21.");
-                        jogo = 1;
+                        jogador1Parou=true;
+                        System.out.println(jogador1.getnome() + " decidiu parar.");
                     } else if (valor2 > 21) {
                         System.out.println("\n" + jogador1.getnome() + " venceu!");
                         System.out.println("Seu valor estourou 21: " + valor2);
