@@ -14,6 +14,8 @@ public class Jogo {
     private boolean jogador1Parou;
     private boolean jogador2Parou;
 
+    private int PrimeirasCartas;
+
     public Jogo(String nomeJogador1, String nomeJogador2) {
         jogador1 = new Jogador(nomeJogador1);
         jogador2 = new Jogador(nomeJogador2);
@@ -24,12 +26,27 @@ public class Jogo {
         valor2 = 0;
         jogador1Parou = false;
         jogador2Parou = false;
+        PrimeirasCartas=0;
     }
 
     public void iniciar() {
         Scanner scanner = new Scanner(System.in);
 
         while (jogo == 0) {
+            if(PrimeirasCartas==0){
+                for (int i = 0; i <2 ; i++) {
+                    Carta carta = baralho.tirarCarta();
+                    int numerocarta = obterValorCarta(carta.getValor());
+                    valor1 += numerocarta;
+                }
+                for (int i = 0; i <2 ; i++) {
+                    Carta carta = baralho.tirarCarta();
+                    int numerocarta = obterValorCarta(carta.getValor());
+                    valor2 += numerocarta;
+                }
+                PrimeirasCartas=1;
+                }
+
             int resposta = 0;
 
             if (turno == 1 && !jogador1Parou) {
