@@ -8,16 +8,18 @@ public class Jogo {
     private final Jogador jogador2;
     private final Baralho baralho;
     private final Pontuador pontuador;
+    private final int modo;
     private int turno;
     private boolean jogador1Parou;
     private boolean jogador2Parou;
     private boolean jogoFinalizado;
 
-    public Jogo(String nomeJogador1, String nomeJogador2) {
+    public Jogo(String nomeJogador1, String nomeJogador2, int modo) {
         this.jogador1 = new Jogador(nomeJogador1);
         this.jogador2 = new Jogador(nomeJogador2);
         this.baralho = new Baralho();
         this.pontuador = new Pontuador();
+        this.modo = modo;
         this.turno = 1;
         this.jogador1Parou = false;
         this.jogador2Parou = false;
@@ -27,7 +29,6 @@ public class Jogo {
     public void iniciar() {
         Scanner scanner = new Scanner(System.in);
 
-        // Distribuir 2 cartas iniciais para cada jogador
         for (int i = 0; i < 2; i++) {
             jogador1.adicionarCarta(baralho.tirarCarta());
             jogador2.adicionarCarta(baralho.tirarCarta());
@@ -39,7 +40,7 @@ public class Jogo {
 
             if (!jogadorParou) {
                 System.out.println("\n=== Vez de " + jogadorAtual.getNome() + " ===");
-                int pontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas());
+                int pontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas(), modo);
                 System.out.println("Pontuação atual: " + pontuacao);
                 System.out.println("Deseja pegar carta? [1] Sim | [0] Passar | [2] Parar:");
                 int opcao = scanner.nextInt();
@@ -50,7 +51,7 @@ public class Jogo {
                         jogadorAtual.adicionarCarta(novaCarta);
                         System.out.println("Você pegou a carta: " + novaCarta);
                         System.out.println(MessageFormat.format("Cartas restantes no baralho: {0}", baralho.cartasRestantes()));
-                        int novaPontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas());
+                        int novaPontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas(), modo);
                         if (novaPontuacao == 21) {
                             System.out.println("Parabéns, você fez 21!");
                             encerrarJogo(jogadorAtual);
@@ -71,10 +72,9 @@ public class Jogo {
                 }
             }
 
-            // Verifica se ambos pararam
             if (jogador1Parou && jogador2Parou) {
-                int pontos1 = pontuador.verificarPontuacao(jogador1.getCartas());
-                int pontos2 = pontuador.verificarPontuacao(jogador2.getCartas());
+                int pontos1 = pontuador.verificarPontuacao(jogador1.getCartas(), modo);
+                int pontos2 = pontuador.verificarPontuacao(jogador2.getCartas(), modo);
 
                 if (pontos1 > pontos2) encerrarJogo(jogador1);
                 else if (pontos2 > pontos1) encerrarJogo(jogador2);
@@ -85,7 +85,6 @@ public class Jogo {
                 return;
             }
 
-            // Alterna turno
             turno = (turno == 1) ? 2 : 1;
         }
 
@@ -93,7 +92,7 @@ public class Jogo {
     }
 
     private void encerrarJogo(Jogador vencedor) {
-        int pontuacao = pontuador.verificarPontuacao(vencedor.getCartas());
+        int pontuacao = pontuador.verificarPontuacao(vencedor.getCartas(), modo);
         System.out.println("\n🏆 " + vencedor.getNome() + " venceu com " + pontuacao + " pontos!");
         jogoFinalizado = true;
     }

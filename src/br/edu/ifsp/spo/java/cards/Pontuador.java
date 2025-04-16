@@ -3,8 +3,9 @@ package br.edu.ifsp.spo.java.cards;
 import java.util.List;
 
 public class Pontuador {
-    public int verificarPontuacao(List<Carta> cartas) {
+    public int verificarPontuacao(List<Carta> cartas, int modo) {
         int total = 0;
+
         for (Carta carta : cartas) {
             switch (carta.getValor()) {
                 case AS -> total += 1;
@@ -16,9 +17,13 @@ public class Pontuador {
                 case SETE -> total += 7;
                 case OITO -> total += 8;
                 case NOVE -> total += 9;
-                case DEZ, VALETE, DAMA, REI -> total += 10;
+                case DEZ, VALETE, DAMA, REI -> {
+                    if (modo == 1) total += 10;
+                    else total += 1;
+                }
             }
         }
+
         return total;
     }
 }
