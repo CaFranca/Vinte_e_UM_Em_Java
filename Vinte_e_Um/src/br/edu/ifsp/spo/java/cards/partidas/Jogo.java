@@ -1,4 +1,5 @@
 package br.edu.ifsp.spo.java.cards.partidas;
+
 import br.edu.ifsp.spo.java.cards.itens.Baralho;
 import br.edu.ifsp.spo.java.cards.itens.Pontuador;
 import br.edu.ifsp.spo.java.cards.itens.Carta;
@@ -9,12 +10,13 @@ public class Jogo {
     private final Baralho baralho;
     private final Pontuador pontuador;
     private final int modo;
-    private final JogoUI ui; // Usando JogoUI
+    private final JogoUI ui;
 
     private int turno;
     private boolean jogador1Parou;
     private boolean jogador2Parou;
     private boolean jogoFinalizado;
+    public boolean jogoEmpatado;
 
     public Jogo(String nomeJogador1, String nomeJogador2, int modo, JogoUI ui) {
         this.jogador1 = new Jogador(nomeJogador1);
@@ -27,10 +29,11 @@ public class Jogo {
         this.jogador1Parou = false;
         this.jogador2Parou = false;
         this.jogoFinalizado = false;
+        this.jogoEmpatado = false;
     }
 
     public void iniciar() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             jogador1.adicionarCarta(baralho.tirarCarta());
             jogador2.adicionarCarta(baralho.tirarCarta());
         }
@@ -81,17 +84,19 @@ public class Jogo {
                 int pontos1 = pontuador.verificarPontuacao(jogador1.getCartas(), modo);
                 int pontos2 = pontuador.verificarPontuacao(jogador2.getCartas(), modo);
 
-                if (pontos1 > pontos2) encerrarJogo(jogador1);
-                else if (pontos2 > pontos1) encerrarJogo(jogador2);
-                else {
-                    ui.exibirEmpate(pontos1, pontos2);
-                    jogoFinalizado = true;
+                if (pontos1 > pontos2) {
+                    encerrarJogo(jogador1);
+                } else {
+                    encerrarJogo(jogador2);
                 }
-                return;
-            }
 
+                jogoEmpatado = verificarempate(pontos1, pontos2);
+            }
+//            return;
             turno = (turno == 1) ? 2 : 1;
         }
+
+
     }
 
 
@@ -99,5 +104,11 @@ public class Jogo {
         int pontuacao = pontuador.verificarPontuacao(vencedor.getCartas(), modo);
         ui.exibirVencedor(vencedor.getNome(), pontuacao);
         jogoFinalizado = true;
+    }
+
+    public boolean verificarempate(int ponto1, int ponto2) {
+        ui.exibirEmpate(ponto1, ponto2);
+
+        return true;
     }
 }

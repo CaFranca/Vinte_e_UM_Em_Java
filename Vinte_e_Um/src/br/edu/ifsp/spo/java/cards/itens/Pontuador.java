@@ -8,17 +8,17 @@ public class Pontuador {
 
         for (Carta carta : cartas) {
             switch (carta.getValor()) {
-                case AS -> total += 1;
-                case DOIS -> total += 2;
-                case TRES -> total += 3;
-                case QUATRO -> total += 4;
-                case CINCO -> total += 5;
-                case SEIS -> total += 6;
-                case SETE -> total += 7;
-                case OITO -> total += 8;
-                case NOVE -> total += 9;
+                case AS -> total += 20;
+                case DOIS -> total += 20;
+                case TRES -> total += 20;
+                case QUATRO -> total += 20;
+                case CINCO -> total += 20;
+                case SEIS -> total += 20;
+                case SETE -> total += 20;
+                case OITO -> total += 20;
+                case NOVE -> total += 20;
                 case DEZ, VALETE, DAMA, REI -> {
-                    if (modo == 1) total += 10;
+                    if (modo == 1) total += 20;
                     else total += 1;
                 }
             }
