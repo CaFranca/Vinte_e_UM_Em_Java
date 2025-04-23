@@ -1,26 +1,23 @@
 package br.edu.ifsp.spo.java.cards;
 
-import java.util.Scanner;
-
 public class App {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        JogoUI ui = new JogoUI();
         String nome1, nome2;
 
-        System.out.println("Digite o nome do Jogador 1:");
-        nome1 = scanner.nextLine();
+        nome1 = ui.pedirNomeJogador(1);
+        nome2 = ui.pedirNomeJogador(2);
 
-        System.out.println("Digite o nome do Jogador 2:");
-        nome2 = scanner.nextLine();
+        int modo = ui.escolherModoPontuacao();
 
-        System.out.println("Escolha o modo de pontuação:");
-        System.out.println("[1] Clássico - Figuras valem 10");
-        System.out.println("[2] Alternativo - Figuras valem 1");
-        int modo = scanner.nextInt();
+        int jogar = 1;
+        while (jogar == 1) {
+            Jogo jogo = new Jogo(nome1, nome2, modo, ui);
+            jogo.iniciar();
+            jogar = ui.perguntarSeAceitaRevanche();
+            ui.exibirMensagem("Jogo encerrado!!");
+        }
 
-        Jogo jogo = new Jogo(nome1, nome2, modo);
-        jogo.iniciar();
-
-        scanner.close();
+        ui.fecharScanner();
     }
 }
