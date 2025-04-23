@@ -41,34 +41,38 @@ public class Jogo {
 
             if (!jogadorParou) {
                 ui.exibirMensagem("\n=== Vez de " + jogadorAtual.getNome() + " ===");
-                int pontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas(), modo);
-                ui.exibirPontuacao(jogadorAtual.getNome(), pontuacao);
 
-                int opcao = ui.perguntarEscolhaJogada();
+                boolean vezEncerrada = false;
+                while (!vezEncerrada) {
+                    int pontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas(), modo);
+                    ui.exibirPontuacao(jogadorAtual.getNome(), pontuacao);
 
-                switch (opcao) {
-                    case 1 -> {
-                        Carta novaCarta = baralho.tirarCarta();
-                        jogadorAtual.adicionarCarta(novaCarta);
-                        ui.exibirCartaPegada(novaCarta);
-                        ui.exibirCartasRestantes(baralho.cartasRestantes());
-                        int novaPontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas(), modo);
-                        if (novaPontuacao == 21) {
-                            ui.exibirMensagem("Parabéns, você fez 21!");
-                            encerrarJogo(jogadorAtual);
-                            return;
-                        } else if (novaPontuacao > 21) {
-                            ui.exibirMensagem("Estourou! Você fez " + novaPontuacao);
-                            Jogador outro = (jogadorAtual == jogador1) ? jogador2 : jogador1;
-                            encerrarJogo(outro);
-                            return;
+                    int opcao = ui.perguntarEscolhaJogada();
+
+                    switch (opcao) {
+                        case 1 -> {
+                            Carta novaCarta = baralho.tirarCarta();
+                            jogadorAtual.adicionarCarta(novaCarta);
+                            ui.exibirCartaPegada(novaCarta);
+                            ui.exibirCartasRestantes(baralho.cartasRestantes());
+                            int novaPontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas(), modo);
+                            if (novaPontuacao == 21) {
+                                ui.exibirMensagem("Parabéns, você fez 21!");
+                                encerrarJogo(jogadorAtual);
+                                return;
+                            } else if (novaPontuacao > 21) {
+                                ui.exibirMensagem("Estourou! Você fez " + novaPontuacao);
+                                Jogador outro = (jogadorAtual == jogador1) ? jogador2 : jogador1;
+                                encerrarJogo(outro);
+                                return;
+                            }
                         }
-                    }
-                    case 0 -> ui.exibirMensagem(jogadorAtual.getNome() + " passou a vez.");
-                    case 2 -> {
-                        ui.exibirMensagem(jogadorAtual.getNome() + " decidiu parar.");
-                        if (turno == 1) jogador1Parou = true;
-                        else jogador2Parou = true;
+                        case 2 -> {
+                            ui.exibirMensagem(jogadorAtual.getNome() + " decidiu parar.");
+                            if (turno == 1) jogador1Parou = true;
+                            else jogador2Parou = true;
+                            vezEncerrada = true;
+                        }
                     }
                 }
             }
@@ -89,6 +93,7 @@ public class Jogo {
             turno = (turno == 1) ? 2 : 1;
         }
     }
+
 
     private void encerrarJogo(Jogador vencedor) {
         int pontuacao = pontuador.verificarPontuacao(vencedor.getCartas(), modo);

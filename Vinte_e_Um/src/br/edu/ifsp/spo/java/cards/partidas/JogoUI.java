@@ -31,7 +31,7 @@ public class JogoUI {
     }
 
     public int perguntarEscolhaJogada() {
-        System.out.println("Deseja pegar carta? [1] Sim | [0] Passar | [2] Parar:");
+        System.out.println("Deseja pegar carta? [1] Sim | [2] Parar:");
         return scanner.nextInt();
     }
 
