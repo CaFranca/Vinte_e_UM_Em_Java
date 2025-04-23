@@ -1,5 +1,6 @@
 package br.edu.ifsp.spo.java.cards;
-
+import br.edu.ifsp.spo.java.cards.partidas.JogoUI;
+import br.edu.ifsp.spo.java.cards.partidas.Jogo;
 public class App {
     public static void main(String[] args) {
         JogoUI ui = new JogoUI();
