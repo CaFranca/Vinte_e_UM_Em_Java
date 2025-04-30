@@ -3,6 +3,8 @@ import br.edu.ifsp.spo.java.cards.itens.Baralho;
 import br.edu.ifsp.spo.java.cards.itens.Pontuador;
 import br.edu.ifsp.spo.java.cards.itens.Carta;
 
+import java.util.concurrent.TimeUnit;
+
 public class Jogo {
     private final Jogador jogador1;
     private final Jogador jogador2;
@@ -10,6 +12,7 @@ public class Jogo {
     private final Pontuador pontuador;
     private final int modo;
     private final JogoUI ui; // Usando JogoUI
+    private final int tipoJogo;
 
     private int turno;
     private boolean jogador1Parou;
@@ -17,9 +20,21 @@ public class Jogo {
     private boolean jogoFinalizado;
     public boolean jogoEmpatado;
 
-    public Jogo(String nomeJogador1, String nomeJogador2, int modo, JogoUI ui) {
-        this.jogador1 = new Jogador(nomeJogador1);
-        this.jogador2 = new Jogador(nomeJogador2);
+    public Jogo(String nomeJogador1, String nomeJogador2, int modo, JogoUI ui, int tipoJogo) {
+        if (tipoJogo == 1) { // PvP
+            this.jogador1 = new Jogador(nomeJogador1);
+            this.jogador2 = new Jogador(nomeJogador2);
+        } else if (tipoJogo == 2) { // PvE
+            this.jogador1 = new Jogador(nomeJogador1);
+            this.jogador2 = new IA("IA");
+        } else if (tipoJogo == 3) { // EvE
+            this.jogador1 = new IA("IA 1");
+            this.jogador2 = new IA("IA 2");
+        } else {
+            this.jogador1 = new Jogador(nomeJogador1);
+            this.jogador2 = new Jogador(nomeJogador2);
+        }
+
         this.baralho = new Baralho();
         this.pontuador = new Pontuador();
         this.modo = modo;
@@ -29,9 +44,10 @@ public class Jogo {
         this.jogador2Parou = false;
         this.jogoFinalizado = false;
         this.jogoEmpatado = false;
+        this.tipoJogo= tipoJogo;
     }
 
-    public void iniciar() {
+    public void iniciar() throws InterruptedException {
         for (int i = 0; i < 2; i++) {
             jogador1.adicionarCarta(baralho.tirarCarta());
             jogador2.adicionarCarta(baralho.tirarCarta());
@@ -49,7 +65,16 @@ public class Jogo {
                     int pontuacao = pontuador.verificarPontuacao(jogadorAtual.getCartas(), modo);
                     ui.exibirPontuacao(jogadorAtual.getNome(), pontuacao);
 
-                    int opcao = ui.perguntarEscolhaJogada();
+                    int opcao;
+
+                    if (tipoJogo == 1 || (tipoJogo == 2 && jogadorAtual == jogador1)) {
+                        opcao = ui.perguntarEscolhaJogada();
+                    } else {
+                        IA ia = (IA) jogadorAtual;
+                        opcao = ia.decidirJogada(pontuacao);
+                    }
+
+
 
                     switch (opcao) {
                         case 1 -> {
@@ -63,7 +88,7 @@ public class Jogo {
                                 encerrarJogo(jogadorAtual);
                                 return;
                             } else if (novaPontuacao > 21) {
-                                ui.exibirMensagem("Estourou! Você fez " + novaPontuacao);
+                                ui.exibirMensagem("Estourou! "+jogadorAtual.getNome()+ " fez " + novaPontuacao);
                                 Jogador outro = (jogadorAtual == jogador1) ? jogador2 : jogador1;
                                 encerrarJogo(outro);
                                 return;

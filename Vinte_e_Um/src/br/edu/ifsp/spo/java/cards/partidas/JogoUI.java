@@ -9,20 +9,60 @@ public class JogoUI {
         scanner = new Scanner(System.in);
     }
 
-    public String pedirNomeJogador(int numeroJogador) {
-        System.out.println("Digite o nome do Jogador " + numeroJogador + ":");
-        return scanner.nextLine();
+
+    public String[] obterNomesDosJogadores(int modo) {
+        scanner.nextLine(); // Consumir quebra de linha pendente do scanner
+        String nome1, nome2;
+
+        switch (modo) {
+            case 1 -> { // PvP
+                nome1 = pedirNomeJogador(1);
+                nome2 = pedirNomeJogador(2);
+            }
+            case 2 -> { // PvE
+                nome1 = pedirNomeJogador(1);
+                nome2 = "I.A";
+            }
+            case 3 -> { // EvE
+                nome1 = "I.A-1";
+                nome2 = "I.A-2";
+            }
+            default -> {
+                nome1 = "Jogador 1";
+                nome2 = "Jogador 2";
+            }
+        }
+
+        return new String[]{nome1, nome2};
+    }
+
+
+    public int escolherJogadores() {
+        System.out.println("Escolha o modo de Jogo:");
+        System.out.println("[1] PvP - Player vs Player");
+        System.out.println("[2] PvE - Player vs I.A");
+        System.out.println("[3] EvE - I.A-1 vs I.A-2");
+        System.out.println("Digite:");
+        return scanner.nextInt();
     }
 
     public int escolherModoPontuacao() {
         System.out.println("Escolha o modo de pontuação:");
         System.out.println("[1] Clássico - Figuras valem 10");
         System.out.println("[2] Alternativo - Figuras valem 1");
+        System.out.println("Digite:");
         return scanner.nextInt();
     }
 
+    public String pedirNomeJogador(int numeroJogador) {
+        System.out.println("Digite o nome do Jogador " + numeroJogador + ":");
+        return scanner.nextLine();
+    }
+
+
+
     public int perguntarSeAceitaRevanche() {
-        System.out.println("Aceita uma revanche?: \n[1] - Sim\n[2] - Não");
+        System.out.println("Aceita uma revanche?: \n[1] - Sim\n[2] - Não\nDigite:");
         return scanner.nextInt();
     }
 
@@ -31,7 +71,7 @@ public class JogoUI {
     }
 
     public int perguntarEscolhaJogada() {
-        System.out.println("Deseja pegar carta? [1] Sim | [2] Parar:");
+        System.out.println("Deseja pegar carta? [1] Sim | [2] Parar\nDigite:");
         return scanner.nextInt();
     }
 
