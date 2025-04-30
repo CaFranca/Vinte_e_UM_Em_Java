@@ -37,4 +37,15 @@ public class Baralho {
     public List<Carta> getCards() {
         return cartas;
     }
+
+    public void resetarBaralho() {
+        this.cartas.clear();
+        for (var suit : Naipe.values()) {
+            for (var rank : Valor.values()) {
+                this.cartas.add(new Carta(suit, rank));
+            }
+        }
+        Collections.shuffle(this.cartas);
+    }
+
 }

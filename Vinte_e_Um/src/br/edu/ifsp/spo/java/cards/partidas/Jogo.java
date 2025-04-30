@@ -20,7 +20,7 @@ public class Jogo {
     private boolean jogoFinalizado;
     public boolean jogoEmpatado;
 
-    public Jogo(String nomeJogador1, String nomeJogador2, int modo, JogoUI ui, int tipoJogo) {
+    public Jogo(String nomeJogador1, String nomeJogador2, int modo, JogoUI ui, int tipoJogo,  Baralho baralho) {
         if (tipoJogo == 1) { // PvP
             this.jogador1 = new Jogador(nomeJogador1);
             this.jogador2 = new Jogador(nomeJogador2);
@@ -35,7 +35,7 @@ public class Jogo {
             this.jogador2 = new Jogador(nomeJogador2);
         }
 
-        this.baralho = new Baralho();
+        this.baralho = baralho;
         this.pontuador = new Pontuador();
         this.modo = modo;
         this.ui = ui; // Inicializando JogoUI
@@ -78,7 +78,12 @@ public class Jogo {
 
                     switch (opcao) {
                         case 1 -> {
+                            if (baralho.cartasRestantes() == 0) {
+                                ui.exibirMensagem("O baralho acabou! Reembaralhando...");
+                                baralho.resetarBaralho();
+                            }
                             Carta novaCarta = baralho.tirarCarta();
+
                             jogadorAtual.adicionarCarta(novaCarta);
                             ui.exibirCartaPegada(novaCarta);
                             ui.exibirCartasRestantes(baralho.cartasRestantes());
