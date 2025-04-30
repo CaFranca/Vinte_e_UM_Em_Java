@@ -47,7 +47,7 @@ public class JogoUI {
         System.out.println("🏆 " + vencedor + " venceu com " + pontuacao + " pontos!");
     }
 
-    public void exibirEmpate(int pontos1, int pontos2) {
+    public void exibirEmpate(int pontos1) {
         System.out.println("Empate! Ambos fizeram " + pontos1 + " pontos.");
     }
 

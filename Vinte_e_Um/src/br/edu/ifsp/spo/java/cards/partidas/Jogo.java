@@ -15,6 +15,7 @@ public class Jogo {
     private boolean jogador1Parou;
     private boolean jogador2Parou;
     private boolean jogoFinalizado;
+    public boolean jogoEmpatado;
 
     public Jogo(String nomeJogador1, String nomeJogador2, int modo, JogoUI ui) {
         this.jogador1 = new Jogador(nomeJogador1);
@@ -27,6 +28,7 @@ public class Jogo {
         this.jogador1Parou = false;
         this.jogador2Parou = false;
         this.jogoFinalizado = false;
+        this.jogoEmpatado = false;
     }
 
     public void iniciar() {
@@ -84,8 +86,8 @@ public class Jogo {
                 if (pontos1 > pontos2) encerrarJogo(jogador1);
                 else if (pontos2 > pontos1) encerrarJogo(jogador2);
                 else {
-                    ui.exibirEmpate(pontos1, pontos2);
-                    jogoFinalizado = true;
+                    ui.exibirEmpate(pontos1);
+                    jogoEmpatado = true;
                 }
                 return;
             }
@@ -93,7 +95,6 @@ public class Jogo {
             turno = (turno == 1) ? 2 : 1;
         }
     }
-
 
     private void encerrarJogo(Jogador vencedor) {
         int pontuacao = pontuador.verificarPontuacao(vencedor.getCartas(), modo);
