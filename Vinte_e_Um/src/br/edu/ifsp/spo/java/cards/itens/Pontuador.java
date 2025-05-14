@@ -17,7 +17,8 @@ public class Pontuador {
                 case SETE -> total += 7;
                 case OITO -> total += 8;
                 case NOVE -> total += 9;
-                case DEZ, VALETE, DAMA, REI -> {
+                case DEZ -> total += 10;
+                case VALETE, DAMA, REI -> {
                     if (modo == 1) total += 10;
                     else total += 1;
                 }
