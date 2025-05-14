@@ -2,6 +2,7 @@ package br.edu.ifsp.spo.java.cards.partidas;
 
 import br.edu.ifsp.spo.java.cards.itens.Carta;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -9,9 +10,11 @@ import java.util.concurrent.TimeUnit;
 public class Jogador {
     private final String nome;
     private final List<Carta> cartas = new ArrayList<>();
+    private int pontuacao;
 
     public Jogador(String nome) {
         this.nome = nome;
+        this.pontuacao = 0;
     }
 
     public String getNome() {
@@ -25,6 +28,20 @@ public class Jogador {
     public List<Carta> getCartas() {
         return cartas;
     }
+
+    public int getPontuacao() {
+        return pontuacao;
+    }
+
+    public void addPontuacao(int pontos) {
+        this.pontuacao += pontos;
+    }
+
+    public void limparCartas() {
+        cartas.clear();
+    }
+
+
 }
 
 // -------- Subclasse IA --------

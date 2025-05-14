@@ -9,6 +9,42 @@ public class JogoUI {
         scanner = new Scanner(System.in);
     }
 
+    public int num_rodadas() {
+        System.out.println("Digite o numero de rodadas que terá:");
+        int rodadas=scanner.nextInt();
+        while (rodadas>10 || rodadas<1){
+            System.out.println("Numero de rodadas fora do permitido, digite entre 1 e 10");
+            rodadas=scanner.nextInt();
+        }
+        return rodadas;
+    }
+
+    public void exibirPontuacaoTotal(String nomeJogador, int pontuacaoTotal) {
+        System.out.println(nomeJogador + " - Pontuação total até agora: " + pontuacaoTotal + " pontos");
+    }
+
+
+
+    public int encerrar() {
+        System.out.println("As rodadas se encerraram");
+        return 2;
+    }
+
+    public void exibirPontuacaoFinal(Jogador jogador1, Jogador jogador2) {
+        System.out.println("\n=== Pontuação Final ===");
+        System.out.println(jogador1.getNome() + ": " + jogador1.getPontuacao() + " pontos");
+        System.out.println(jogador2.getNome() + ": " + jogador2.getPontuacao() + " pontos");
+
+        if (jogador1.getPontuacao() > jogador2.getPontuacao()) {
+            System.out.println("🏆 " + jogador1.getNome() + " venceu!");
+        } else if (jogador2.getPontuacao() > jogador1.getPontuacao()) {
+            System.out.println("🏆 " + jogador2.getNome() + " venceu!");
+        } else {
+            System.out.println("🤝 Empate!");
+        }
+    }
+
+
 
     public String[] obterNomesDosJogadores(int modo) {
         scanner.nextLine(); // Consumir quebra de linha pendente do scanner
