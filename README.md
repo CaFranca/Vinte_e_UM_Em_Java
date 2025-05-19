@@ -60,4 +60,4 @@ Este projeto implementa um jogo de cartas baseado nas regras simplificadas do "2
 
 1. Clone o repositório:
    ```bash
-   [git clone https://github.com/SeuUsuario/NOME-DO-REPOSITORIO.git](https://github.com/CaFranca/Vinte_e_UM_Em_Java.git)
+   https://github.com/CaFranca/Vinte_e_UM_Em_Java.git
