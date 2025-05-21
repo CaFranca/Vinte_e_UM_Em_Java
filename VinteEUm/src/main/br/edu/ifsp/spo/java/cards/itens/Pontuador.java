@@ -9,8 +9,8 @@ public class Pontuador {
         for (Carta carta : cartas) {
             switch (carta.getValor()) {
                 case AS -> {
-                    if (modo == 1) total += 11;
-                    else total += 1;
+                    if (modo == 1) total += 10;
+                    else total += 11;
                 }
                 case DOIS -> total += 2;
                 case TRES -> total += 3;
