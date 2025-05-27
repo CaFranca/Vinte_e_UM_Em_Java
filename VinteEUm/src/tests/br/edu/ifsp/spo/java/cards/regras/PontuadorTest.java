@@ -23,16 +23,18 @@ public class PontuadorTest {
         Pontuador pontuador = new Pontuador();
 
         List<Carta> cartas = Arrays.asList(
-                criarCarta(Valor.AS, Naipe.OUROS), criarCarta(Valor.DOIS, Naipe.COPAS),
-                criarCarta(Valor.TRES, Naipe.ESPADAS), criarCarta(Valor.QUATRO, Naipe.PAUS),
+                criarCarta(Valor.AS, Naipe.OUROS),
+                criarCarta(Valor.DOIS, Naipe.COPAS),
+                criarCarta(Valor.TRES, Naipe.ESPADAS),
+                criarCarta(Valor.QUATRO, Naipe.PAUS),
                 criarCarta(Valor.CINCO, Naipe.OUROS)
         );
 
-        int pontuacao = pontuador.verificarPontuacao(cartas, 1);
-        assertEquals(11 + 2 + 3 + 4 + 5, pontuacao);
+        int pontuacaoModo1 = pontuador.verificarPontuacao(cartas, 1);
+        assertEquals(10 + 2 + 3 + 4 + 5, pontuacaoModo1);
 
-        pontuacao = pontuador.verificarPontuacao(cartas, 2);
-        assertEquals(1 + 2 + 3 + 4 + 5, pontuacao);
+        int pontuacaoModo2 = pontuador.verificarPontuacao(cartas, 2);
+        assertEquals(11 + 2 + 3 + 4 + 5, pontuacaoModo2);
     }
 
     @Test
@@ -61,16 +63,18 @@ public class PontuadorTest {
         Pontuador pontuador = new Pontuador();
 
         List<Carta> cartas = Arrays.asList(
-                criarCarta(Valor.AS, Naipe.OUROS), criarCarta(Valor.DOIS, Naipe.COPAS),
+                criarCarta(Valor.AS, Naipe.OUROS),
+                criarCarta(Valor.DOIS, Naipe.COPAS),
                 criarCarta(Valor.VALETE, Naipe.ESPADAS),
-                criarCarta(Valor.DAMA, Naipe.PAUS), criarCarta(Valor.REI, Naipe.OUROS)
+                criarCarta(Valor.DAMA, Naipe.PAUS),
+                criarCarta(Valor.REI, Naipe.OUROS)
         );
 
         int pontuacaoModo1 = pontuador.verificarPontuacao(cartas, 1);
-        assertEquals(11 + 2 + 10 + 10 + 10, pontuacaoModo1);
+        assertEquals(10 + 2 + 10 + 10 + 10, pontuacaoModo1);
 
         int pontuacaoModo2 = pontuador.verificarPontuacao(cartas, 2);
-        assertEquals(1 + 2 + 1 + 1 + 1, pontuacaoModo2);
+        assertEquals(11 + 2 + 1 + 1 + 1, pontuacaoModo2);
     }
 
     @Test
@@ -90,8 +94,11 @@ public class PontuadorTest {
                 criarCarta(Valor.AS, Naipe.COPAS),
                 criarCarta(Valor.AS, Naipe.ESPADAS)
         );
-        int pontuacao = pontuador.verificarPontuacao(cartas, 1);
-        assertEquals(11 + 11 + 11, pontuacao);
+        int pontuacaoModo1 = pontuador.verificarPontuacao(cartas, 1);
+        assertEquals(10 + 10 + 10, pontuacaoModo1);
+
+        int pontuacaoModo2 = pontuador.verificarPontuacao(cartas, 2);
+        assertEquals(11 + 11 + 11, pontuacaoModo2);
     }
 
     @Test
@@ -103,12 +110,12 @@ public class PontuadorTest {
                 criarCarta(Valor.DOIS, Naipe.COPAS)
         );
 
-        int pontuacao = pontuador.verificarPontuacao(cartas, 1);
+        int pontuacao = pontuador.verificarPontuacao(cartas, 2);
         assertEquals(11 + 2, pontuacao);
     }
 
     @Test
-    public void testPontuacaoAsValendo1() {
+    public void testPontuacaoAsValendo10() {
         Pontuador pontuador = new Pontuador();
 
         List<Carta> cartas = Arrays.asList(
@@ -116,21 +123,8 @@ public class PontuadorTest {
                 criarCarta(Valor.DOIS, Naipe.COPAS)
         );
 
-        int pontuacao = pontuador.verificarPontuacao(cartas, 2);
-        assertEquals(1 + 2, pontuacao);
-    }
-
-    @Test
-    public void testPontuacaoMaxima() {
-        Pontuador pontuador = new Pontuador();
-
-        List<Carta> cartas = Arrays.asList(
-                criarCarta(Valor.AS, Naipe.OUROS),
-                criarCarta(Valor.DEZ, Naipe.COPAS)
-        );
-
         int pontuacao = pontuador.verificarPontuacao(cartas, 1);
-        assertEquals(1 + 10 + 10, pontuacao);
+        assertEquals(10 + 2, pontuacao);
     }
 
     @Test
@@ -149,8 +143,8 @@ public class PontuadorTest {
         int pontosJogador1 = pontuador.verificarPontuacao(cartasJogador1, 1);
         int pontosJogador2 = pontuador.verificarPontuacao(cartasJogador2, 1);
 
-        assertEquals(18, pontosJogador1);
-        assertEquals(18, pontosJogador2);
+        assertEquals(10 + 8, pontosJogador1);
+        assertEquals(9 + 9, pontosJogador2);
     }
 
     @Test
@@ -161,20 +155,20 @@ public class PontuadorTest {
                 criarCarta(Valor.DEZ, Naipe.OUROS),
                 criarCarta(Valor.NOVE, Naipe.COPAS),
                 criarCarta(Valor.QUATRO, Naipe.ESPADAS)
-        ); // 23
+        );
 
         List<Carta> cartasJogador2 = Arrays.asList(
                 criarCarta(Valor.DEZ, Naipe.PAUS),
                 criarCarta(Valor.OITO, Naipe.OUROS)
-        ); // 18
+        );
 
         int pontosJogador1 = pontuador.verificarPontuacao(cartasJogador1, 1);
         int pontosJogador2 = pontuador.verificarPontuacao(cartasJogador2, 1);
 
         assertTrue(pontosJogador1 > 21);
         assertTrue(pontosJogador2 <= 21);
-        assertEquals(23, pontosJogador1);
-        assertEquals(18, pontosJogador2);
+        assertEquals(10 + 9 + 4, pontosJogador1);
+        assertEquals(10 + 8, pontosJogador2);
     }
 
     @Test
@@ -184,12 +178,12 @@ public class PontuadorTest {
         List<Carta> cartasJogador1 = Arrays.asList(
                 criarCarta(Valor.DEZ, Naipe.OUROS),
                 criarCarta(Valor.NOVE, Naipe.COPAS),
-                criarCarta(Valor.SETE, Naipe.ESPADAS) // 26
+                criarCarta(Valor.SETE, Naipe.ESPADAS)
         );
         List<Carta> cartasJogador2 = Arrays.asList(
                 criarCarta(Valor.DEZ, Naipe.PAUS),
                 criarCarta(Valor.OITO, Naipe.OUROS),
-                criarCarta(Valor.SEIS, Naipe.COPAS) // 24
+                criarCarta(Valor.SEIS, Naipe.COPAS)
         );
 
         int pontosJogador1 = pontuador.verificarPontuacao(cartasJogador1, 1);
@@ -197,8 +191,8 @@ public class PontuadorTest {
 
         assertTrue(pontosJogador1 > 21);
         assertTrue(pontosJogador2 > 21);
-        assertEquals(26, pontosJogador1);
-        assertEquals(24, pontosJogador2);
+        assertEquals(10 + 9 + 7, pontosJogador1);
+        assertEquals(10 + 8 + 6, pontosJogador2);
     }
 
     @Test
@@ -208,19 +202,19 @@ public class PontuadorTest {
         List<Carta> cartasJogador1 = Arrays.asList(
                 criarCarta(Valor.AS, Naipe.OUROS),
                 criarCarta(Valor.DEZ, Naipe.COPAS)
-        ); // 11 + 10 = 21
+        );
 
         List<Carta> cartasJogador2 = Arrays.asList(
                 criarCarta(Valor.NOVE, Naipe.PAUS),
                 criarCarta(Valor.DOIS, Naipe.OUROS),
-                criarCarta(Valor.DEZ, Naipe.COPAS) // 9 + 2 + 10 = 21
+                criarCarta(Valor.DEZ, Naipe.COPAS)
         );
 
-        int pontosJogador1 = pontuador.verificarPontuacao(cartasJogador1, 1);
+        int pontosJogador1 = pontuador.verificarPontuacao(cartasJogador1, 2);
         int pontosJogador2 = pontuador.verificarPontuacao(cartasJogador2, 1);
 
-        assertEquals(21, pontosJogador1);
-        assertEquals(21, pontosJogador2);
+        assertEquals(11 + 10, pontosJogador1);
+        assertEquals(9 + 2 + 10, pontosJogador2);
     }
 
     @Test
@@ -229,20 +223,19 @@ public class PontuadorTest {
 
         List<Carta> cartasJogador1 = Arrays.asList(
                 criarCarta(Valor.AS, Naipe.OUROS),
-                criarCarta(Valor.DEZ, Naipe.COPAS) // 11 + 10 = 21
+                criarCarta(Valor.DEZ, Naipe.COPAS)
         );
 
         List<Carta> cartasJogador2 = Arrays.asList(
                 criarCarta(Valor.OITO, Naipe.ESPADAS),
-                criarCarta(Valor.DEZ, Naipe.PAUS) // 8 + 10 = 18
+                criarCarta(Valor.DEZ, Naipe.PAUS)
         );
 
-        int pontosJogador1 = pontuador.verificarPontuacao(cartasJogador1, 1);
+        int pontosJogador1 = pontuador.verificarPontuacao(cartasJogador1, 2);
         int pontosJogador2 = pontuador.verificarPontuacao(cartasJogador2, 1);
 
-        assertEquals(21, pontosJogador1);
-        assertEquals(18, pontosJogador2);
+        assertEquals(11 + 10, pontosJogador1);
+        assertEquals(8 + 10, pontosJogador2);
         assertTrue(pontosJogador1 > pontosJogador2);
     }
-
 }
