@@ -7,72 +7,90 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Jogador {
+    // Nome do jogador
     private final String nome;
+
+    // Lista de cartas na mão do jogador
     private final List<Carta> cartas = new ArrayList<>();
+
+    // Pontuação atual do jogador
     private int pontuacao;
 
+    // Construtor que inicializa o nome e pontuação do jogador
     public Jogador(String nome) {
         this.nome = nome;
         this.pontuacao = 0;
     }
 
+    // Retorna o nome do jogador
     public String getNome() {
         return nome;
     }
 
+    // Adiciona uma carta à mão do jogador
     public void adicionarCarta(Carta carta) {
         cartas.add(carta);
     }
 
+    // Retorna a lista de cartas do jogador
     public List<Carta> getCartas() {
         return cartas;
     }
 
+    // Retorna a pontuação atual do jogador
     public int getPontuacao() {
         return pontuacao;
     }
 
+    // Adiciona pontos à pontuação atual do jogador
     public void addPontuacao(int pontos) {
         this.pontuacao += pontos;
     }
 
+    // Limpa todas as cartas da mão do jogador
     public void limparCartas() {
         cartas.clear();
     }
-
-
 }
 
-// -------- Subclasse IA --------
+// Subclasse que representa a Inteligência Artificial do jogo
 class IA extends Jogador {
+
     public IA(String nome) {
         super(nome);
     }
 
+    /**
+     * Decide a jogada da IA com base na pontuação atual.
+     * Pode escolher pegar uma carta (1) ou parar (2).
+     *
+     * @param pontuacaoAtual Pontuação atual da IA
+     * @return 1 para pegar carta, 2 para parar
+     * @throws InterruptedException para simular tempo de reflexão
+     */
     public int decidirJogada(int pontuacaoAtual) throws InterruptedException {
         System.out.println("Deixe-me pensar....");
         TimeUnit.SECONDS.sleep(2);
 
-        // Se a pontuação for muito baixa, a IA deve pegar uma carta
         if (pontuacaoAtual < 15 && pontuacaoAtual > 1) {
+            // Pontuação baixa: a IA decide pegar mais uma carta
             exibirFraseDePegarCarta();
             TimeUnit.SECONDS.sleep(1);
-            return 1; // Pega carta se tiver menos de 17
-        }
-        // Se a pontuação estiver entre 15 e 18, a IA pode hesitar
-        else if (pontuacaoAtual > 15 && pontuacaoAtual < 18) {
+            return 1;
+        } else if (pontuacaoAtual > 15 && pontuacaoAtual < 18) {
+            // Pontuação intermediária: a IA hesita entre pegar ou parar
             exibirFraseDeHesitar();
             TimeUnit.SECONDS.sleep(2);
-            return (int) ((Math.random() * 2) + 1); // Pode pegar carta ou parar
-        }
-        // Se a pontuação for muito alta, a IA decide não pegar mais cartas
-        else {
+            return (int) ((Math.random() * 2) + 1); // 1 ou 2 aleatório
+        } else {
+            // Pontuação alta: a IA decide parar para não estourar
             exibirFraseDeParar();
             TimeUnit.SECONDS.sleep(1);
-            return 2; // Decide parar
+            return 2;
         }
     }
 
+    // Frases aleatórias exibidas quando a IA decide pegar carta
     private void exibirFraseDePegarCarta() {
         String[] frases = {
                 "Vou pegar mais uma carta!",
@@ -88,6 +106,7 @@ class IA extends Jogador {
         System.out.println(frases[(int) (Math.random() * frases.length)]);
     }
 
+    // Frases aleatórias exibidas quando a IA está indecisa
     private void exibirFraseDeHesitar() {
         String[] frases = {
                 "Isso pode ser arriscado, mas vou tentar.",
@@ -103,6 +122,7 @@ class IA extends Jogador {
         System.out.println(frases[(int) (Math.random() * frases.length)]);
     }
 
+    // Frases aleatórias exibidas quando a IA decide parar
     private void exibirFraseDeParar() {
         String[] frases = {
                 "Cé Loko, num Compensa!",
@@ -118,4 +138,3 @@ class IA extends Jogador {
         System.out.println(frases[(int) (Math.random() * frases.length)]);
     }
 }
-
