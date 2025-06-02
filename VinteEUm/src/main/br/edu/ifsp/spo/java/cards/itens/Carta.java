@@ -22,25 +22,39 @@ public class Carta {
      *
      * @param cartas Lista de cartas a serem exibidas lado a lado.
      */
+// Método estático que exibe uma lista de cartas desenhadas em ASCII lado a lado
     public static void exibirCartasLadoALado(List<Carta> cartas) {
+
+        // Verifica se a lista de cartas está vazia
         if (cartas.isEmpty()) {
             System.out.println("Nenhuma carta para exibir.");
-            return;
+            return; // Encerra o método se não houver cartas
         }
 
+        // Obtém o número de linhas que compõem o desenho ASCII de uma carta
+        // (Pressupõe que todas as cartas têm o mesmo número de linhas no desenho)
         int linhasPorCarta = cartas.get(0).carregarAscii().size();
 
+        // Percorre cada linha do desenho das cartas (linha 0 até a última)
         for (int i = 0; i < linhasPorCarta; i++) {
+
+            // Cria um StringBuilder para montar a linha atual composta por todas as cartas
             StringBuilder linhaComposta = new StringBuilder();
 
+            // Percorre cada carta da lista
             for (Carta c : cartas) {
+                // Carrega o desenho ASCII da carta atual
                 List<String> desenho = c.carregarAscii();
-                linhaComposta.append(desenho.get(i)).append("  "); // Espaço entre cartas
+
+                // Adiciona a linha atual (i) da carta no StringBuilder
+                linhaComposta.append(desenho.get(i)).append("  "); // Adiciona dois espaços entre cartas
             }
 
+            // Exibe no console a linha composta com essa parte de todas as cartas
             System.out.println(linhaComposta);
         }
     }
+
 
     /**
      * Retorna o naipe da carta.
@@ -118,7 +132,7 @@ public class Carta {
     }
 
     /**
-     * Método legado para imprimir o desenho ASCII de uma carta específica no console.
+      Método legado para imprimir o desenho ASCII de uma carta específica no console.
      * Pode ser usado para testes ou visualização individual.
      *
      * @param naipe Naipe da carta a ser exibida.
