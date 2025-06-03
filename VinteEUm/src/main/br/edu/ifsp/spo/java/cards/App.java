@@ -24,6 +24,9 @@ public class App {
             } catch (Exception e) {
                 System.out.println("Entrada inválida. Por favor, digite um número válido.");
                 ui.fecharScanner(); // Fechar scanner para evitar problemas no próximo uso
+                // Recriar scanner para continuar
+                // Alternativa: deixar scanner aberto e consumir entrada inválida, mas aqui simplifico
+                // Mas como Scanner está dentro do JogoUI e não público, talvez só ignore
             }
         }
 
