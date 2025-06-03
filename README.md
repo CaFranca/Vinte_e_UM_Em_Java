@@ -1,10 +1,10 @@
-# 🃏 Jogo 21 em Java — CaFranca
+#  Jogo 21 em Java — CaFranca
 
 Este projeto implementa um jogo de cartas baseado nas regras simplificadas do "21" (Blackjack), desenvolvido em Java, com interação via terminal. O objetivo do jogo é alcançar 21 pontos somando os valores das cartas, sem ultrapassar esse limite.
 
 ---
 
-## 📚 Funcionalidades
+##  Funcionalidades
 
 - Baralho completo de 52 cartas (embaralhado aleatoriamente).
 - Jogadores humanos ou computador (modo automático).
@@ -20,7 +20,7 @@ Este projeto implementa um jogo de cartas baseado nas regras simplificadas do "2
 
 ---
 
-## 🛠️ Organização do Código
+##  Organização do Código
 
 - `Baralho`, `Carta`, `Valor`, `Naipe` → Modelagem das cartas e do baralho.
 - `Jogador` → Armazena nome, pontuação e cartas na mão.
@@ -31,7 +31,7 @@ Este projeto implementa um jogo de cartas baseado nas regras simplificadas do "2
 
 ---
 
-## 🎮 Regras resumidas
+##  Regras resumidas
 
 - **21 pontos exatos**: Vitória direta.
 - **Ambos com 21**: Empate.
@@ -42,7 +42,7 @@ Este projeto implementa um jogo de cartas baseado nas regras simplificadas do "2
 
 ---
 
-## 🧮 Sistema de Pontuação (Múltiplas Rodadas)
+##  Sistema de Pontuação (Múltiplas Rodadas)
 
 - Empate: +10 pontos para ambos.
 - Um estourou e o outro não:  
@@ -56,7 +56,7 @@ Este projeto implementa um jogo de cartas baseado nas regras simplificadas do "2
 
 ---
 
-## 🚀 Como executar
+##  Como executar
 
 1. Clone o repositório:
    ```bash

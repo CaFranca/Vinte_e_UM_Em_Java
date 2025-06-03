@@ -99,7 +99,7 @@ public class Carta {
         List<String> linhas = new ArrayList<>();
         String caminhoCompleto = String.format(
                 "/cards/%s/%s.txt",
-                naipe.toString().toLowerCase(),
+                naipe.toString(),
                 valor.toString()
         );
 
